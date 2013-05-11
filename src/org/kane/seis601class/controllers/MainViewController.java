@@ -2,16 +2,19 @@ package org.kane.seis601class.controllers;
 
 import java.io.*;
 
+import org.kane.seis601class.models.Session;
 import org.kane.seis601class.views.*;
 
 public class MainViewController {
 	
-	private AuthView currentView;
+	private ViewInterface currentView;
 	private boolean shouldExit;
+	private Session currentSession;
 	
 	public MainViewController(){
 		shouldExit = false;
-		currentView = new AuthView();
+		currentSession = new Session();//this is a temp logic will need to create a session via sessionRepo
+		currentView = new AuthView(currentSession);
 	}
 	
 	public void run(){
@@ -20,8 +23,18 @@ public class MainViewController {
 			System.out.print(">> ");
 			String input = readUserInput();
 			checkForExit(input);
+			if(!shouldExit){
+				currentView.processUserInput(input);
+				checkForSessionChange();
+			}
 		}System.out.println("exiting...");
 
+	}
+	public void checkForSessionChange(){
+		if(currentSession.getUser() != null){
+			System.out.println("You are currently logged in! ");
+			currentView = new MainMenuView();
+		}
 	}
 	public void checkForExit(String input){
 		if(input.equals("q")||input.equals("Q"))

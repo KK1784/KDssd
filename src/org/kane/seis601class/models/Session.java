@@ -6,16 +6,30 @@ import java.util.Date;
 public class Session {
 	private int id;
 	private int userID;
+	private User user;
 	private Date loginAt;
 	private Date logoutAt;
 	public int getId() {
 		return id;
+	}
+	
+	public void loginUser(User user){
+		this.user = user;
+		this.loginAt = new Date();
+		this.userID = this.user.getId();
+	}
+	public void logoutUser(){
+		this.logoutAt = new Date();
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
 	public int getUserID() {
 		return userID;
+	}
+
+	public User getUser() {
+		return user;
 	}
 	public void setUserID(int userID) {
 		this.userID = userID;
