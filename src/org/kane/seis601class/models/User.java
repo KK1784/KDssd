@@ -1,6 +1,10 @@
 package org.kane.seis601class.models;
+
+import java.io.Serializable;
+
 //a user is a cashier or admin
-public class User {
+public class User implements Serializable {
+	
 	private int id;
 	private String username;
 	
@@ -23,6 +27,12 @@ public class User {
 		this.password = password;
 	}
 	private String password;
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password="
+				+ password + "]";
+	}
 	
 	
 }
