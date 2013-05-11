@@ -1,80 +1,45 @@
 package org.kane.seis601class.repositories;
 
-import java.io.*;
 import java.util.*;
 
 import org.kane.seis601class.models.User;
 
-public class UserRepo {
+public class UserRepo extends BaseRepo {
 	private ArrayList<User> userlist;
-	private String filename = "/Users/kanenelson/POS/601ClassProject/Data/Users.txt";
-	private boolean fileExist(){
-		File f = new File(filename);
-		return f.exists();
+	
+	public User auth(String username, String password){
+		User returnUser = null;
+		
+		for(int i = 0; i < userlist.size(); i++){
+			User temp = userlist.get(i);
+			System.out.println(temp);
+			if(username.equals(temp.getUsername()) && password.equals(temp.getPassword())){
+				returnUser = temp;
+			}
+		}
+		
+		return returnUser;
+		
 	}
 	public String toString() {
 		return "UserRepo [userlist=" + userlist + "]";
 	}
 
+	@SuppressWarnings("unchecked")
 	public UserRepo() {
-		this.userlist = new ArrayList<User>();
-		open();
+		this.filename = "Users.txt";
+		ArrayList <User> list = (ArrayList<User>) this.deserializeObj();
+		if(list == null){
+			this.userlist = new ArrayList<User>();
+		}else{
+			this.userlist = list;
+		}
 	}
-	public void open(){
-		if(!fileExist()){
-			return;
-		}
-		try {
-			FileInputStream filein = new FileInputStream(filename);
-			ObjectInputStream in = new ObjectInputStream(filein);
-			userlist = (ArrayList<User>) in.readObject();
-			in.close();
-			filein.close();
-			
-		} catch (Exception e) {
-		
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	public void save(){
-		try {
-			FileOutputStream fileout = new FileOutputStream(filename);
-			ObjectOutputStream out = new ObjectOutputStream(fileout);
-			out.writeObject(userlist);
-			out.close();
-			fileout.close();
-			
-		} catch (Exception e) {
-		
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	/*public void save() {
-		BufferedWriter w = null;
-		try {
-			w = new BufferedWriter(new FileWriter(
-					"/Users/kanenelson/POS/601ClassProject/Data/Users.txt"));
-			w.write("test string");
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (w != null) {
-				try {
-					w.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-
-	}*/
-
+	
 	public void addUser(User u) {
 		this.userlist.add(u);
+	}
+	public void save(){
+		this.serialize(this.userlist);
 	}
 }
