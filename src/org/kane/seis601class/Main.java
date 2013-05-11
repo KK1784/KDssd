@@ -2,6 +2,7 @@ package org.kane.seis601class;
 
 import java.io.File;
 
+import org.kane.seis601class.controllers.MainViewController;
 import org.kane.seis601class.models.*;
 import org.kane.seis601class.repositories.*;
 
@@ -21,7 +22,7 @@ public class Main {
 		u.setUsername("username");
 		u.setId(123);
 		r.addUser(u);
-		r.save();	
+		r.save();
 	}
 	/**
 	 * @param args
@@ -30,7 +31,8 @@ public class Main {
 		
 		//createFixtures();//
 		runTest();//populate user
-		
+		MainViewController vc = new MainViewController();
+		vc.run();
 		
 	
 
