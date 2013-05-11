@@ -3,18 +3,31 @@ package org.kane.seis601class.controllers;
 import java.io.*;
 
 import org.kane.seis601class.models.Session;
+import org.kane.seis601class.models.User;
 import org.kane.seis601class.views.*;
 
-public class MainViewController {
+public class MainViewController implements SessionControllerInterface{
 	
+	@Override
+	public void startSession(User user) {
+		currentSession = new Session();//TODO this is a temp logic will need to create a session via sessionRepo
+		currentSession.loginUser(user);
+		currentView = new MainMenuView();
+		System.out.println("You are currently logged in! ");
+	}
+
+	@Override
+	public void stopSession() {
+		// TODO Auto-generated method stub
+		
+	}
 	private ViewInterface currentView;
 	private boolean shouldExit;
 	private Session currentSession;
 	
 	public MainViewController(){
 		shouldExit = false;
-		currentSession = new Session();//this is a temp logic will need to create a session via sessionRepo
-		currentView = new AuthView(currentSession);
+		currentView = new AuthView(this);
 	}
 	
 	public void run(){
@@ -25,17 +38,14 @@ public class MainViewController {
 			checkForExit(input);
 			if(!shouldExit){
 				currentView.processUserInput(input);
-				checkForSessionChange();
+		
 			}
 		}System.out.println("exiting...");
 
 	}
-	public void checkForSessionChange(){
-		if(currentSession.getUser() != null){
-			System.out.println("You are currently logged in! ");
-			currentView = new MainMenuView();
-		}
-	}
+
+		
+	
 	public void checkForExit(String input){
 		if(input.equals("q")||input.equals("Q"))
 			shouldExit = true;

@@ -1,5 +1,6 @@
 package org.kane.seis601class.views;
 
+import org.kane.seis601class.controllers.SessionControllerInterface;
 import org.kane.seis601class.models.Session;
 import org.kane.seis601class.models.User;
 import org.kane.seis601class.repositories.UserRepo;
@@ -10,11 +11,11 @@ public class AuthView implements ViewInterface {
 	private String enteredUsername;
 	private String enteredPassword;
 	private UserRepo userRepo;
-	private Session currentSession;
+	private SessionControllerInterface sessionController;
 	
 	
-	public AuthView(Session s){
-		currentSession = s;
+	public AuthView(SessionControllerInterface s){
+		sessionController = s;
 		currentState = AuthState.WAITING_FOR_USERNAME;
 		userRepo = new UserRepo();
 	}
@@ -43,8 +44,8 @@ public class AuthView implements ViewInterface {
 			System.out.println("Invalid Username or Password! Please try again.");
 			currentState = AuthState.WAITING_FOR_USERNAME;
 			}else{
-				currentSession.loginUser(temp);
-				System.out.println("Login Successful!!  More to come...");
+				sessionController.startSession(temp);
+				
 			
 		}
 	}
