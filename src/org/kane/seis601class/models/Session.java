@@ -4,15 +4,18 @@ import java.util.Date;
 
 //session login stamp and logout stamp for user
 public class Session {
+	//class members
 	private int id;
 	private int userID;
 	private User user;
 	private Date loginAt;
 	private Date logoutAt;
-	public int getId() {
-		return id;
+	
+	//constructor
+	public Session() {
 	}
 	
+	//methods
 	public void loginUser(User user){
 		this.user = user;
 		this.loginAt = new Date();
@@ -20,6 +23,11 @@ public class Session {
 	}
 	public void logoutUser(){
 		this.logoutAt = new Date();
+	}
+	
+	//getters and setters
+	public int getId() {
+		return id;
 	}
 	public void setId(int id) {
 		this.id = id;

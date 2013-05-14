@@ -6,21 +6,31 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-
-public class BaseRepo {
+public class BaseRepository {
+	//class members 
 	protected String filename;
 	protected String directory;
 	private boolean fileExist(){
 		File f = new File(directory + filename);
 		return f.exists();
 	}
-
-
-	public BaseRepo() {
+	
+	//constructor
+	public BaseRepository() {
 		String currentDir = new File(".").getAbsolutePath();
 		this.directory = currentDir + "/Data/";
 		
 	}
+	
+	//methods
+	public void dirExist(){
+		File d = new File(directory);
+		if(!d.exists()){
+			d.mkdir();
+		}
+	}
+	
+	//reading the object
 	public Object deserializeObj(){
 		dirExist();
 		if(!fileExist()){
@@ -41,6 +51,8 @@ public class BaseRepo {
 		}
 		return returnObj;
 	}
+	
+	//store object in a text file
 	public void serialize(Object saveObj){
 		try {
 			FileOutputStream fileout = new FileOutputStream(directory + filename);
@@ -57,12 +69,7 @@ public class BaseRepo {
 		
 	}
 	
-	public void dirExist(){
-		File d = new File(directory);
-		if(!d.exists()){
-			d.mkdir();
-		}
-	}
+
 
 	
 }

@@ -1,6 +1,6 @@
 package org.kane.seis601class.views;
 
-public class MainMenuView implements ViewInterface {
+public class MainMenuView implements View_Interface {
 
 	@Override
 	public void display() {

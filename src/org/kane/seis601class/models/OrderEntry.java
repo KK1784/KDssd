@@ -1,10 +1,18 @@
 package org.kane.seis601class.models;
 //single line item on an order for example 1 x golfball
 public class OrderEntry {
+	//class members
 	private int id;
 	private int orderID;
 	private int productID;
 	private int quantity;
+	
+	//constructor
+	public OrderEntry(){
+		
+	}
+	
+	//getters and setters
 	public int getId() {
 		return id;
 	}

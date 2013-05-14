@@ -6,9 +6,19 @@ import org.kane.seis601class.models.Session;
 import org.kane.seis601class.models.User;
 import org.kane.seis601class.views.*;
 
-public class MainViewController implements SessionControllerInterface{
+public class MainViewController implements SessionControl_Interface{
+	//class members
+	private View_Interface currentView;
+	private boolean shouldExit;
+	private Session currentSession;
 	
-	@Override
+	//constructor
+	public MainViewController(){
+		shouldExit = false;
+		currentView = new AuthView(this);
+	}
+	
+	@Override//from SessionControllerInterface
 	public void startSession(User user) {
 		currentSession = new Session();//TODO this is a temp logic will need to create a session via sessionRepo
 		currentSession.loginUser(user);
@@ -16,20 +26,13 @@ public class MainViewController implements SessionControllerInterface{
 		System.out.println("You are currently logged in! ");
 	}
 
-	@Override
+	@Override//from SessionControllerInterface
 	public void stopSession() {
 		// TODO Auto-generated method stub
 		
 	}
-	private ViewInterface currentView;
-	private boolean shouldExit;
-	private Session currentSession;
 	
-	public MainViewController(){
-		shouldExit = false;
-		currentView = new AuthView(this);
-	}
-	
+	//methods
 	public void run(){
 		while(shouldExit == false){
 			currentView.display();
@@ -43,14 +46,14 @@ public class MainViewController implements SessionControllerInterface{
 		}System.out.println("exiting...");
 
 	}
-
 		
-	
+	//checking for exit if user input is q or Q
 	public void checkForExit(String input){
 		if(input.equals("q")||input.equals("Q"))
 			shouldExit = true;
 		
 	}
+	//interprets or reads user input
 	public String readUserInput(){
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));

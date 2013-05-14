@@ -8,7 +8,7 @@ import org.kane.seis601class.repositories.*;
 
 public class Main {
 	public static void runTest(){
-		UserRepo r = new UserRepo();
+		UserRepository r = new UserRepository();
 		User result = r.auth("username", "12345");
 		System.out.println("Logging in with legit cred: " + result);
 		User result2 = r.auth("username", "1234");
@@ -16,7 +16,7 @@ public class Main {
 	}
 	
 	public static void createFixtures(){	System.out.println("creating fixtures");
-		UserRepo r = new UserRepo();
+		UserRepository r = new UserRepository();
 		User u = new User();
 		u.setPassword("12345");
 		u.setUsername("username");
@@ -29,7 +29,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-		//createFixtures();//
+		//createFixtures();
 		runTest();//populate user
 		MainViewController vc = new MainViewController();
 		vc.run();

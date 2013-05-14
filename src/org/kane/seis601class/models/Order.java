@@ -6,12 +6,13 @@ import java.util.Date;
 public class Order {
 	public enum Status {NEW, CANCELLED, COMPLETED}
 	
-	
+	//class members
 	private int id;
 	private int sessionID;
 	private Date createdAt;
 	private Status status;
 	
+	//setters and getters
 	public int getId() {
 		return id;
 	}
